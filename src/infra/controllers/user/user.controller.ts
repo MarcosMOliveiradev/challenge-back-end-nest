@@ -54,9 +54,16 @@ export class UserController {
         password: passwordBody,
       });
 
-      const token = await this.jwt.signAsync({ sub: 'kfjfhsdkjfhk' });
+      const token = await this.jwt.signAsync(
+        {
+          sub: user.id,
+          name: user.name,
+          email: user.email,
+        },
+        { secret: process.env.JWT_PRIVATE_KEY },
+      );
 
-      return token;
+      return { token };
     } catch (error) {
       throw error;
     }
