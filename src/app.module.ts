@@ -2,16 +2,19 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-import { AppService } from './app.service';
 import { PostgreConfigServer } from './config/postgre.config.service';
 import { HttpModule } from './infra/http.module';
 import { UserModule } from './repository/user.module';
+import { AuthModule } from './infra/auth/Auth.module';
+import { envSchema } from './env';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
+    AuthModule,
     ConfigModule.forRoot({
+      validate: (env) => envSchema.parse(env),
       isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
@@ -19,6 +22,6 @@ import { UserModule } from './repository/user.module';
       inject: [PostgreConfigServer],
     }),
   ],
-  providers: [AppService],
+  providers: [PostgreConfigServer],
 })
 export class AppModule {}

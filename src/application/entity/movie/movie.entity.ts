@@ -1,9 +1,9 @@
 import { UUID } from 'node:crypto';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Movie {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: UUID;
 
   @Column({ length: 50 })
@@ -16,14 +16,38 @@ export class Movie {
   duration: string;
 
   @Column('text')
-  photo: string;
-
-  @Column('text')
   launch: string;
 
-  @Column('date')
-  createAt: Date;
+  @Column({ nullable: true })
+  photo?: string;
 
-  @Column('date')
-  updateAt: Date;
+  @Column('date', { nullable: true })
+  createAt?: Date;
+
+  @Column({ nullable: true })
+  updateAt?: Date;
+
+  constructor(
+    id: UUID,
+    name: string,
+    category: string,
+    duration: string,
+    launch: string,
+    photo?: string,
+  ) {
+    if (this.createAt === undefined || this.createAt === null) {
+      this.createAt = new Date();
+    }
+
+    if (this.updateAt === undefined || this.updateAt === null) {
+      this.updateAt = new Date();
+    }
+
+    this.id = id;
+    this.name = name;
+    this.category = category;
+    this.duration = duration;
+    this.launch = launch;
+    this.photo = photo;
+  }
 }

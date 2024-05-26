@@ -8,7 +8,19 @@ export class CreateUserDTO {
   email: string;
 
   @IsNotEmpty()
-  password: string;
+  passwordBody: string;
 
-  avata?: string | null;
+  avata?: string;
+
+  constructor(
+    name: string,
+    email: string,
+    passwordBody: string,
+    avata?: string,
+  ) {
+    this.name = name;
+    this.email = email;
+    this.passwordBody = passwordBody;
+    this.avata = avata;
+  }
 }
