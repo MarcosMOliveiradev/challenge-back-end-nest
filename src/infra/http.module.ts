@@ -10,10 +10,18 @@ import { AuthModule } from './auth/Auth.module';
 import { MovieController } from './controllers/movie/movie.controller';
 import { MovieModule } from 'src/repository/movie.module';
 import { ListMovie } from 'src/application/use-case/movie/ListMovie';
+import { CreateMovie } from 'src/application/use-case/movie/CreateMovie';
 
 @Module({
   imports: [UserModule, AuthModule, MovieModule],
   controllers: [UserController, MovieController],
-  providers: [GetUser, CreateUser, AuthUser, JwtService, ListMovie],
+  providers: [
+    GetUser,
+    CreateUser,
+    AuthUser,
+    JwtService,
+    ListMovie,
+    CreateMovie,
+  ],
 })
 export class HttpModule {}
