@@ -5,6 +5,7 @@ import {
   Controller,
   Get,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUser } from 'src/application/use-case/user/CreateUser';
 import { GetUser } from 'src/application/use-case/user/GetUser';
@@ -15,6 +16,7 @@ import {
   IAuthUserRespose,
 } from 'src/application/use-case/user/AuthUser';
 import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('/user')
 export class UserController {
@@ -26,6 +28,7 @@ export class UserController {
   ) {}
 
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async get() {
     const user = await this.getUser.execut();
     return user;

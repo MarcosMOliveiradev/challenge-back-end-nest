@@ -6,6 +6,7 @@ import { UserRepository } from 'src/application/repository/user/UserRepository';
 @Injectable()
 export class UserService implements UserRepository {
   constructor(private userRepository: DataSource) {}
+
   async findByEmail(email: string) {
     const user = await this.userRepository
       .getRepository(User)

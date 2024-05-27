@@ -7,10 +7,13 @@ import { CreateUser } from 'src/application/use-case/user/CreateUser';
 import { AuthUser } from 'src/application/use-case/user/AuthUser';
 import { JwtService } from '@nestjs/jwt';
 import { AuthModule } from './auth/Auth.module';
+import { MovieController } from './controllers/movie/movie.controller';
+import { MovieModule } from 'src/repository/movie.module';
+import { ListMovie } from 'src/application/use-case/movie/ListMovie';
 
 @Module({
-  imports: [UserModule, AuthModule],
-  controllers: [UserController],
-  providers: [GetUser, CreateUser, AuthUser, JwtService],
+  imports: [UserModule, AuthModule, MovieModule],
+  controllers: [UserController, MovieController],
+  providers: [GetUser, CreateUser, AuthUser, JwtService, ListMovie],
 })
 export class HttpModule {}

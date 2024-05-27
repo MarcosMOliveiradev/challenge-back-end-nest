@@ -7,11 +7,13 @@ import { HttpModule } from './infra/http.module';
 import { UserModule } from './repository/user.module';
 import { AuthModule } from './infra/auth/Auth.module';
 import { envSchema } from './env';
+import { MovieModule } from './repository/movie.module';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
+    MovieModule,
     AuthModule,
     ConfigModule.forRoot({
       validate: (env) => envSchema.parse(env),
